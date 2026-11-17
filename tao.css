@@ -1,0 +1,155 @@
+.collection-switch{display:flex;width:100%;max-width:100%;justify-content:space-between;gap:16px;margin:24px auto 34px;padding:0;border:0;border-radius:0;background:transparent}.collection-switch button{border:1px solid #e1e0d6;border-radius:999px;padding:9px 18px;background:#eeeee5;color:#758075;font:500 12px 'DM Sans',sans-serif;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s}.collection-switch button[aria-pressed="true"]{background:#fffefa;border-color:#d7d3c6;color:#253b34;box-shadow:0 2px 8px #253b3410}.collection-switch button:focus-visible,.tao-view button:focus-visible,.tao-view select:focus-visible{outline:3px solid #93a28c88;outline-offset:2px}.tao-view{padding:0 0 30px}.tao-view[hidden],.browse[hidden],.reading[hidden],.book-directory[hidden]{display:none!important}.tao-heading{margin:0 0 22px}.tao-heading .eyebrow{margin-bottom:7px}.tao-heading h1{font-size:clamp(34px,7vw,48px);margin:0;color:#253b34}.tao-controls{display:grid;grid-template-columns:1fr 1fr auto;align-items:end;gap:10px;margin:0 0 22px}.tao-select-field{display:grid;gap:7px;min-width:0;color:#748074;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}.tao-select-field select{width:100%;height:48px;appearance:none;border:1px solid #e2e1d7;border-radius:12px;background:#fffefa;color:#253b34;padding:0 13px;font:500 14px 'DM Sans',sans-serif;letter-spacing:0;text-transform:none;cursor:pointer}.tao-step-controls{display:flex;gap:5px}.tao-step-controls button,.tao-chapter-step button{width:46px;height:48px;border:1px solid #e2e1d7;border-radius:12px;background:#fffefa;color:#526852;font:22px Georgia,serif;cursor:pointer}.tao-view button:disabled{opacity:.38;cursor:default}.tao-reading{border-top:1px solid #dcded3}.tao-chapter-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 2px 12px;color:#778174;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}.tao-chapter-step{display:flex;gap:5px}.tao-chapter-step button{width:34px;height:32px;border-radius:9px;font-size:23px;line-height:1}.tao-comparison{display:grid;gap:9px}.tao-version{display:grid;grid-template-columns:130px minmax(0,1fr);align-items:start;gap:16px;padding:16px 18px;border:1px solid #e8e6dc;border-radius:14px;background:#fffefa}.tao-version-name{margin:3px 0 0;color:#758075;font:600 10px 'DM Sans',sans-serif;letter-spacing:.1em;line-height:1.5;text-transform:uppercase}.tao-verse-text{margin:0;color:#2a3931;font:18px/1.65 'EB Garamond',Georgia,serif}.tao-version-empty .tao-verse-text{color:#9a9d93;font:italic 13px/1.5 'DM Sans',sans-serif}.shell.tao-active{width:min(100% - 48px,760px)}@media(max-width:520px){.collection-switch{margin:20px auto 27px}.collection-switch button{padding:9px 15px}.tao-controls{grid-template-columns:1fr 1fr;gap:9px}.tao-step-controls{grid-column:1/-1;justify-content:flex-end}.tao-step-controls button{width:44px;height:38px}.tao-version{grid-template-columns:1fr;gap:5px;padding:13px 15px}.tao-version-name{margin:0}.tao-verse-text{font-size:17px}.tao-heading h1{font-size:38px}}
+/* One reading face throughout both collections and their controls. */
+html[data-page-font] body,html[data-page-font] body *{font-family:"Caslon","Libre Baskerville",Georgia,serif!important}
+
+/* Chapter navigation, reading list, and verse tools. */
+.tao-controls{grid-template-columns:1fr 1fr 1.3fr}
+.tao-directory{margin:0 0 20px;border-block:1px solid #deded3}
+.tao-directory summary{padding:11px 3px;color:#687366;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;list-style:none}
+.tao-directory summary::-webkit-details-marker{display:none}
+.tao-directory summary::after{content:'+';float:right;color:#71866f;font-size:16px}
+.tao-directory[open] summary::after{content:'−'}
+#tao-chapter-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 15px;padding:0 2px 12px}
+.tao-chapter-link{display:grid;grid-template-columns:28px minmax(0,1fr);gap:7px;align-items:start;padding:9px 4px;border-top:1px solid #ecebe4;color:#45564a;text-decoration:none}
+.tao-chapter-link:hover,.tao-chapter-link:focus-visible{background:#f7f6ef;color:#7f1d27;outline:none}
+.tao-link-number{color:#9a8a69;font-size:10px;font-variant-numeric:tabular-nums;padding-top:2px}
+.tao-link-copy{display:grid;gap:2px}.tao-link-copy strong{font-size:11px;font-weight:600;line-height:1.35}.tao-link-copy small{color:#7d8379;font-size:10px;line-height:1.4}
+.tao-chapter-heading{align-items:center;padding:14px 0;border-bottom:1px solid #e5e2d8;text-transform:none;letter-spacing:0}
+.tao-chapter-title-wrap{min-width:0}.tao-chapter-title-wrap>span{color:#9a8a69;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tao-chapter-title-wrap h2{margin:3px 0 2px;color:#7f1d27;font-size:22px;line-height:1.2}
+.tao-chapter-title-wrap p{margin:0;color:#7a7e74;font-size:12px;line-height:1.45}
+.tao-chapter-tools{display:flex;align-items:center;gap:5px;flex:none}
+.tao-chapter-tools button,.tao-verse-favorite,.tao-selection-tools button,.tao-dialog-actions button,.tao-note-footer button,.tao-dialog-navigation button{border:1px solid #dfd8ca;background:#fffdf8;color:#546650;cursor:pointer}
+.tao-chapter-tools button{width:34px;height:34px;font-size:18px}
+#tao-favorite-chapter{color:#8a6e37;font-size:20px}
+#tao-select-verses{font-size:16px}
+.tao-verse-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;color:#85877d;font-size:10px}
+.tao-verse-nav button,.tao-dialog-navigation button{min-height:31px;padding:0 8px;font-size:10px}
+.tao-verse-nav button:disabled,.tao-dialog-navigation button:disabled{opacity:.4;cursor:default}
+.tao-selection-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:9px 0;border-block:1px solid #e8e4d9;color:#7b8176;font-size:11px}
+.tao-selection-tools[hidden]{display:none!important}.tao-selection-tools span{margin-right:auto}
+.tao-selection-tools button{min-height:30px;padding:0 9px;font-size:10px}.tao-selection-tools button:disabled{opacity:.4;cursor:default}
+.tao-verse-list{display:grid}
+.tao-verse-row{display:grid;grid-template-columns:0 minmax(0,1fr) 34px;align-items:start;gap:9px;padding:11px 4px;border-bottom:1px solid #e8e5dd;transition:background .15s}
+.tao-verse-row.is-current{border-left:2px solid #9b8051;padding-left:8px;background:#fbfaf5}
+.tao-verse-row.is-highlighted{background:#f6edcf}
+.tao-verse-checkbox{display:none;width:16px;height:16px;margin:5px 0 0;accent-color:#74866e}
+.tao-verse-list.selecting-verses .tao-verse-row{grid-template-columns:20px minmax(0,1fr) 34px}
+.tao-verse-list.selecting-verses .tao-verse-checkbox{display:block}
+.tao-verse-open{display:grid;grid-template-columns:27px minmax(0,1fr);gap:8px;align-items:start;width:100%;padding:0;border:0;background:transparent;color:#293a31;text-align:left;cursor:pointer}
+.tao-verse-open:hover .tao-verse-copy{text-decoration:underline;text-decoration-color:#b9aa87;text-underline-offset:3px}
+.tao-verse-number{padding-top:3px;color:#9a8a69;font:11px 'DM Sans',sans-serif;font-variant-numeric:tabular-nums}
+.tao-verse-copy{font:18px/1.68 'Caslon','Libre Baskerville',Georgia,serif}
+.tao-verse-favorite{width:32px;height:30px;padding:0;color:#9b8051;font-size:19px}
+.tao-verse-favorite[aria-pressed="true"]{background:#f5edcf;color:#8d6d26}
+.tao-reader-status{min-height:18px;margin:8px 0 0;color:#778476;font-size:11px}
+.tao-closer-read{width:min(94vw,760px);max-width:calc(100vw - 24px);max-height:88dvh;overflow:auto;padding:20px;border:1px solid #e1dacb;background:#fffdf8;color:#253b34;box-shadow:0 18px 55px #2b251830}
+.tao-closer-read::backdrop{background:#18251f88;backdrop-filter:blur(3px)}
+.tao-dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding-bottom:13px;border-bottom:1px solid #e8e4da}
+.tao-dialog-heading .eyebrow{margin-bottom:4px}.tao-dialog-heading h2{margin:0;color:#7f1d27;font-size:24px;line-height:1.25}
+#tao-close-dialog{width:36px;height:36px;border:1px solid #e2ded4;background:#fff;color:#6f776d;font-size:24px;cursor:pointer}
+.tao-dialog-verses{display:grid;gap:7px;padding:12px 0}
+.tao-translation-passage{padding:12px 13px;border:1px solid #e9e5dc;background:#fff}
+.tao-translation-passage.is-current-translation{border-color:#c9b991;background:#fbf7ed}
+.tao-translation-passage h3{margin:0 0 5px;color:#7f1d27;font:600 10px 'DM Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.tao-translation-passage p{margin:0;color:#2a3931;font-size:17px;line-height:1.65;overflow-wrap:anywhere}
+.tao-translation-passage p.is-highlighted{background:#f6df91;box-shadow:0 0 0 3px #f6df91}
+.tao-dialog-tools{padding:12px 0;border-top:1px solid #e6e1d7}
+.tao-dialog-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tao-dialog-actions button,.tao-note-footer button{min-height:34px;padding:0 10px;font-size:11px}
+#tao-dialog-favorite[aria-pressed="true"],#tao-dialog-highlight[aria-pressed="true"]{border-color:#cfbd91;background:#f5edcf;color:#735f2e}
+.tao-dialog-tools>label{display:grid;gap:6px;color:#7c8177;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.tao-dialog-tools textarea{width:100%;min-height:70px;padding:9px;border:1px solid #e2ded4;background:#fff;color:#263b34;font:14px/1.5 'Caslon','Libre Baskerville',Georgia,serif;letter-spacing:0;text-transform:none;resize:vertical}
+.tao-note-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;color:#778476;font-size:11px}
+.tao-dialog-navigation{display:flex;justify-content:space-between;gap:8px;padding-top:11px;border-top:1px solid #e6e1d7}
+@media(max-width:650px){#tao-chapter-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 9px}.tao-controls{grid-template-columns:1fr 1fr}.tao-translation-field{grid-column:1/-1}.tao-chapter-heading{align-items:flex-start;gap:8px}.tao-chapter-tools{gap:3px}.tao-chapter-tools button{width:30px;height:31px}.tao-chapter-title-wrap h2{font-size:19px}.tao-verse-copy{font-size:17px}.tao-closer-read{padding:14px}.tao-dialog-heading h2{font-size:21px}}
+@media(max-width:390px){#tao-chapter-links{grid-template-columns:1fr}.tao-verse-nav button{padding-inline:5px}.tao-chapter-title-wrap p{font-size:11px}}
+
+.shell.tao-active .our-father-scroll{display:none!important}
+
+/* Keep verse text in the wide column when selection checkboxes are hidden. */
+.tao-verse-row{grid-template-columns:minmax(0,1fr) 34px}
+.tao-verse-list.selecting-verses .tao-verse-row{grid-template-columns:20px minmax(0,1fr) 34px}
+.tao-verse-open,.tao-verse-copy{min-width:0;word-break:normal;overflow-wrap:normal;white-space:normal}
+
+/* Match the Bible reader’s compact selector, chapter card, and verse-list layout. */
+.shell.tao-active{width:min(100% - 48px,680px)}
+.tao-heading{margin:28px 0 8px;text-align:center}
+.tao-heading h1{margin:0;color:#7f1d27;font-size:21px;line-height:1.3;letter-spacing:0}
+.tao-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0;padding:8px 0 12px;border-bottom:1px solid #e2dac9}
+.tao-translation-field{grid-column:1/-1}
+.tao-select-field select:disabled{opacity:1;color:#7f1d27}
+.tao-reading{border:0}
+.tao-chapter-heading{display:grid;grid-template-columns:38px 38px minmax(0,1fr) 38px 38px;align-items:center;gap:6px;padding:19px 8px 12px;border:0;text-align:center}
+.tao-chapter-title-wrap{grid-column:3;grid-row:1;min-width:0;text-align:center}
+.tao-chapter-title-wrap>span{display:none}
+.tao-chapter-title-wrap h2{margin:0;color:#7f1d27;font-size:22px;line-height:1.3}
+.tao-chapter-title-wrap p{margin:0;color:#8a7761;font-size:12px;line-height:1.4}
+.tao-chapter-nav,.tao-chapter-favorite,.tao-select-verses{width:36px;height:34px;padding:0;border:1px solid #dfd8ca;background:#fffdf8;color:#68735f;cursor:pointer}
+.tao-chapter-nav{font:22px Georgia,serif;line-height:1}
+.tao-chapter-favorite{grid-column:2;grid-row:1;color:#9b8051;font-size:20px}
+.tao-select-verses{grid-column:4;grid-row:1;font-size:16px}
+#tao-previous-chapter{grid-column:1;grid-row:1}
+#tao-next-chapter{grid-column:5;grid-row:1}
+.tao-chapter-nav:disabled{opacity:.38;cursor:default}
+.tao-verse-row{grid-template-columns:minmax(0,1fr);gap:0;padding:11px 8px;border-bottom:0;background:transparent}
+.tao-verse-row.is-current{border-left:0;padding-left:8px;background:transparent}
+.tao-verse-list.selecting-verses .tao-verse-row{grid-template-columns:20px minmax(0,1fr)}
+.tao-verse-open{grid-template-columns:18px minmax(0,1fr);gap:12px}
+.tao-verse-number{padding-top:5px;color:#8f8a7d;font-size:10px;text-align:right}
+.tao-verse-copy{font-size:16px;line-height:1.75;color:#342f27}
+.tao-verse-row.is-favorite .tao-verse-number{color:#9b8051;font-weight:700}
+.tao-directory{margin:26px 0 8px;padding:12px 14px 8px;border:1px solid #e2dac9;background:#fffdf8;box-shadow:0 3px 14px #47381f14}
+.tao-directory summary{padding:2px 0 8px;color:#7f1d27;font-size:10px}
+.tao-directory summary::after{font-size:14px}
+#tao-chapter-links{padding-bottom:5px}
+@media(max-width:620px){.shell.tao-active{width:calc(100% - 32px)}.tao-heading{margin-top:20px}.tao-controls{gap:8px 6px}.tao-chapter-heading{grid-template-columns:34px 32px minmax(0,1fr) 32px 34px;gap:3px;padding-inline:0}.tao-chapter-nav,.tao-chapter-favorite,.tao-select-verses{width:31px;height:32px}.tao-chapter-title-wrap h2{font-size:19px}.tao-chapter-title-wrap p{font-size:10px}.tao-verse-row{padding:10px 4px}.tao-verse-open{grid-template-columns:16px minmax(0,1fr);gap:9px}.tao-verse-copy{font-size:16px}}
+
+.tao-verse-nav[hidden]{display:none!important}
+
+.shell.tao-active .music-widget,.shell.tao-active .religious-dictionary-button,.shell.tao-active .prayer-menu-wrap{display:none!important}
+
+/* Tao-specific exports and inquiry, styled alongside the existing Bible dialogs. */
+.tao-tool-dialog{width:min(94vw,650px)}
+.tao-tool-label{display:grid;gap:6px;margin:10px 0;color:#778074;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tao-tool-label input,.tao-tool-label select{width:100%;min-height:40px;padding:8px 10px;border:1px solid #ded7c9;background:#fffdf8;color:#34382f;font:14px 'Caslon','Libre Baskerville',Georgia,serif;letter-spacing:0;text-transform:none}
+.tao-download-chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;max-height:45vh;overflow:auto;margin:10px 0;border-block:1px solid #e5dfd2}
+.tao-download-chapters label{display:flex;align-items:flex-start;gap:8px;padding:8px 4px;border-bottom:1px solid #eee9df;color:#4b5146;font-size:12px;line-height:1.4;cursor:pointer}
+.tao-download-chapters input{flex:none;margin:2px 0 0;accent-color:#74866e}
+.tao-download-chapters small{display:block;color:#8a8b81;font-size:10px}
+.tao-tool-dialog .content-download-tools{display:flex;gap:7px;margin:10px 0}
+.tao-tool-dialog .content-download-tools input{flex:1;min-width:0;height:38px;padding:0 10px;border:1px solid #e2dac9;background:#fffdf8;font:13px 'Caslon','Libre Baskerville',Georgia,serif}
+.tao-tool-dialog .content-download-tools button,.tao-inquiry-form>button{min-height:36px;padding:0 10px;border:1px solid #d9c9aa;background:#f8f3e8;color:#53472f;font:600 10px 'Caslon','Libre Baskerville',Georgia,serif;cursor:pointer}
+.tao-tool-dialog .content-download-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid #e8e2d5;color:#778074;font-size:11px}
+.tao-tool-dialog .content-download-footer button{min-height:34px;padding:0 10px;border:1px solid #d9c9aa;background:#f8f3e8;color:#53472f;font:600 10px 'Caslon','Libre Baskerville',Georgia,serif;cursor:pointer}
+.tao-tool-dialog .content-download-footer button:disabled{opacity:.45;cursor:default}
+.tao-inquiry-form{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:9px}
+.tao-inquiry-form .tao-tool-label{margin:10px 0}
+.tao-inquiry-results{display:grid;gap:7px;margin-top:13px}
+.tao-inquiry-result{width:100%;padding:10px 12px;border:1px solid #e6e0d3;background:#fffdf8;text-align:left;cursor:pointer}
+.tao-inquiry-result strong{display:block;color:#7f1d27;font-size:13px;font-weight:600}
+.tao-inquiry-result span{display:block;margin-top:3px;color:#667064;font:13px/1.5 'Caslon','Libre Baskerville',Georgia,serif}
+.tao-inquiry-empty{margin:8px 0;color:#7b8176;font:13px/1.5 'Caslon','Libre Baskerville',Georgia,serif}
+@media(max-width:540px){.tao-download-chapters{grid-template-columns:1fr}.tao-inquiry-form{grid-template-columns:1fr}.tao-inquiry-form>button{justify-self:end}}
+
+.tao-read-progress{display:flex;align-items:center;gap:7px;margin:10px 0 3px;color:#65715f;font-size:11px;cursor:pointer}
+.tao-read-progress input{width:16px;height:16px;margin:0;accent-color:#71866f}
+.tao-verse-row.is-read .tao-verse-number::after{content:' ✓';color:#71866f;font-size:9px}
+
+.read-progress-toggle{display:flex;align-items:center;gap:7px;margin:10px 0 3px;color:#65715f;font-size:11px;cursor:pointer}
+.read-progress-toggle input{width:16px;height:16px;margin:0;accent-color:#71866f}
+.verse-number.verse-read::after{content:' ✓';color:#71866f;font-size:9px}
+
+.tao-chapter-title-wrap h2[role="button"]{cursor:pointer}
+.tao-chapter-title-wrap h2[role="button"]:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.tao-chapter-title-wrap h2[role="button"]:focus-visible{outline:2px solid #9b8051;outline-offset:3px}
+.tao-full-chapter{width:min(96vw,900px)}
+.tao-full-chapter-comparison{display:grid;gap:9px}
+.tao-full-version{padding:12px 14px}
+.tao-full-version .translation-version-name{padding-bottom:6px;border-bottom:1px solid #e9e2d4;color:#7f1d27}
+.tao-full-chapter-verse{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;margin:7px 0;color:#34372f;font:16px/1.65 'Caslon','Libre Baskerville',Georgia,serif}
+.tao-full-chapter-number{color:#978769;font:10px 'Caslon','Libre Baskerville',Georgia,serif;padding-top:4px;text-align:right}
+@media(max-width:560px){.tao-full-chapter{padding:14px}.tao-full-chapter-verse{font-size:15px;line-height:1.6}}
+
+
+.shell.tao-active .tao-translation-field{grid-column:1/-1}

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en" data-page-font="caslon">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Still Waters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=EB+Garamond:wght@400;500;600&family=Playfair+Display:wght@500;600&family=IM+Fell+English&family=Crimson+Pro:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Source+Serif+4:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="directory.css" />
+  <link rel="stylesheet" href="dictionary-ui.css" />
+  <link rel="stylesheet" href="music-player.css" />
+  <link rel="stylesheet" href="tao.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topline"><span class="brand-name" aria-label="Still Waters">Still Waters</span><div class="topline-actions"><div class="header-saved-tools" role="group" aria-label="Saved verses"><span id="saved-summary" class="saved-summary" title="Saved verses">0 ☆</span><div class="export-actions" aria-label="Back up saved verses"><button id="download-zip" type="button" title="Download saved verses as a ZIP" aria-label="Download saved verses as a ZIP" disabled>Download</button><input id="import-saved-json" type="file" accept=".json,application/json" hidden /></div><div class="music-widget"><button id="music-note-toggle" class="music-note-toggle" type="button" aria-label="Open music and score player" aria-expanded="false" title="Music">♫</button><section id="music-panel" class="music-panel" aria-label="Music and score player" hidden><div class="music-panel-heading"><span>Music &amp; scores</span><button id="close-music-panel" type="button" aria-label="Close music panel">×</button></div><label class="music-control-label" for="score-pdf-select">Open score PDF</label><select id="score-pdf-select" class="music-select"><option value="">Choose a PDF…</option><option value="christmas.pdf">Christmas score</option><option value="singlescorepdf.pdf">Single score</option></select><label class="music-control-label" for="music-format-select">Playlist</label><select id="music-format-select" class="music-select"><option value="midi">Hymn MIDI</option><option value="responsorial">Responsorial MIDI</option><option value="christmas">Christmas MIDI</option><option value="mp3">MP3</option></select><label class="music-control-label" for="midi-track-select">Song</label><select id="midi-track-select" class="music-select" disabled></select><div id="midi-transpose-row" class="midi-transpose-row"><span id="midi-key-readout">Key: —</span><select id="midi-transpose-select" aria-label="Transpose song" disabled></select></div><div class="midi-player-controls"><button id="midi-previous" type="button" aria-label="Previous song" title="Previous" disabled>◀</button><button id="midi-play" type="button" aria-label="Play song" title="Play" disabled>▶</button><button id="midi-next" type="button" aria-label="Next song" title="Next" disabled>▶|</button></div><audio id="mp3-audio" preload="none" hidden></audio><p id="midi-player-status" class="midi-player-status" role="status" aria-live="polite">Loading hymn playlist…</p></section></div><button id="open-kjv-dictionary" class="dictionary-launch dictionary-top-button" type="button" title="Dictionary" aria-label="Open the word dictionary">Aa</button><button id="open-bible-dictionary" class="dictionary-launch dictionary-top-button religious-dictionary-button" type="button" title="Religious dictionary" aria-label="Open Easton’s and Smith’s Bible dictionaries">B</button><span id="export-status" class="export-status" role="status" aria-live="polite"></span><div id="selection-tools" class="selection-tools" hidden><span id="selection-summary"></span><button id="save-highlight" type="button" hidden>Save highlight</button><button id="favorite-selection" type="button">Favorite selected</button><button id="copy-selection" type="button">Copy selected</button><button id="clear-selection" type="button">Clear</button></div></div><div class="prayer-menu-wrap"><button id="open-prayers" class="prayer-launch" type="button" aria-label="Choose a prayer" aria-haspopup="menu" aria-expanded="false" aria-controls="prayer-menu" title="Prayer">⛪</button><div id="prayer-menu" class="prayer-menu" role="menu" aria-label="Prayers" hidden></div></div><button id="open-experience-menu" class="experience-launch" type="button" aria-label="Choose devotional or survey" title="Inquiry">🙏</button><div class="backup-wrap"><button id="backup-menu-toggle" class="backup-launch" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="backup-menu" aria-label="Save/Load App" title="Save/Load App">💾</button><div id="backup-menu" class="backup-menu" role="menu" aria-label="Saved verse backup" hidden><button id="download-json" type="button" role="menuitem" disabled>Save app</button><button id="import-json-button" type="button" role="menuitem">Load app</button></div></div><button id="download-bible-zip" type="button" aria-label="Download the complete Bible as a ZIP" title="Download all" disabled>📖</button><button id="open-content-downloads" type="button" class="content-download-launch" aria-label="Download selected topics, devotionals, survey results, or prayers" title="Download selected content">⬇</button></div></header>
+    <aside class="our-father-scroll" aria-hidden="true" aria-label="Prayers">
+      <div class="prayer-scroll-window"><p id="our-father-scroll-copy" class="prayer-scroll-copy"></p></div>
+    </aside>
+    <aside class="side-art side-art-left" aria-hidden="true"><div id="side-art-left-stack" class="side-art-stack"></div></aside>
+    <aside class="side-art side-art-right" aria-hidden="true"><div id="side-art-right-stack" class="side-art-stack"></div></aside>
+    <section id="tao-view" class="tao-view" aria-label="Tao Te Ching reader">
+      <div class="tao-controls">
+        <label class="tao-select-field"><span>Book</span><select aria-label="Book" disabled><option>Tao Te Ching</option></select></label>
+        <label class="tao-select-field"><span>Topic</span><select id="tao-topic-select" aria-label="Explore a Tao Te Ching topic"></select></label>
+        <label class="tao-select-field"><span>Chapter</span><select id="tao-chapter-select" aria-label="Choose a Tao Te Ching chapter"></select></label>
+        <label class="tao-select-field tao-translation-field"><span>Translation</span><select id="tao-translation-select" aria-label="Choose a Tao Te Ching translation"></select></label>
+        <select id="tao-verse-select" aria-label="Verse position" hidden></select>
+      </div>
+      <div class="tao-heading"><h1>Tao Te Ching</h1></div>
+      <section class="tao-reading" aria-live="polite">
+        <div class="tao-chapter-heading">
+          <button id="tao-previous-chapter" class="tao-chapter-nav" type="button" aria-label="Previous chapter">‹</button>
+          <button id="tao-favorite-chapter" class="tao-chapter-favorite" type="button" aria-label="Favorite chapter" title="Favorite chapter">☆</button>
+          <div class="tao-chapter-title-wrap"><span id="tao-location">Chapter 1</span><h2 id="tao-context-title" role="button" tabindex="0" aria-label="Open full chapter comparison"></h2><p id="tao-chapter-description"></p></div>
+          <button id="tao-select-verses" class="tao-select-verses" type="button" aria-label="Select verses" aria-pressed="false">☐</button>
+          <button id="tao-next-chapter" class="tao-chapter-nav" type="button" aria-label="Next chapter">›</button>
+        </div>
+        <div class="tao-verse-nav" hidden><button id="tao-previous" type="button" aria-label="Previous verse">← Previous verse</button><span id="tao-verse-position">Verse 1</span><button id="tao-next" type="button" aria-label="Next verse">Next verse →</button></div>
+        <div id="tao-selection-tools" class="tao-selection-tools" hidden><span id="tao-selection-count">0 selected</span><button id="tao-favorite-selected" type="button" disabled>Favorite selected</button><button id="tao-copy-selected" type="button" disabled>Copy selected</button><button id="tao-clear-selected" type="button" disabled>Clear</button></div>
+        <div id="tao-verse-list" class="tao-verse-list"></div>
+      </section>
+      <p id="tao-reader-status" class="tao-reader-status" role="status" aria-live="polite"></p>
+      <details class="tao-directory"><summary>Chapters</summary><nav id="tao-chapter-links" aria-label="Tao Te Ching chapters"></nav></details>
+    </section>
+    <dialog id="tao-closer-read" class="verse-dialog tao-closer-read" aria-labelledby="tao-dialog-title">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">A closer look</p><h2 id="tao-dialog-title"></h2></div>
+        <button id="tao-close-dialog" class="dialog-close" type="button" aria-label="Close closer read">×</button>
+      </div>
+      <div class="verse-pagination">
+        <button id="tao-dialog-previous" type="button">‹ Previous</button>
+        <span id="tao-dialog-position"></span>
+        <button id="tao-dialog-next" type="button">Next ›</button>
+      </div>
+      <div class="scroll-reader-controls"><button id="tao-scroll-mode-toggle" type="button" aria-pressed="false">Scroll rest of this book</button></div>
+      <div id="tao-scroll-reader-pane" class="scroll-reader-pane" aria-label="Scrolling reading from this verse to the end of the Tao Te Ching" tabindex="0" hidden></div>
+      <label class="tao-read-progress"><input id="tao-mark-read" type="checkbox"><span>Mark as read</span></label>
+      <section class="translation-block tao-primary-translation">
+        <div class="translation-heading"><p id="tao-current-label" class="translation-label"></p></div>
+        <p id="tao-current-text" class="dialog-verse"></p>
+        <details id="tao-all-translations" class="all-translation-details">
+          <summary>See all translation versions</summary>
+          <div id="tao-dialog-verses" class="all-translation-versions"></div>
+        </details>
+      </section>
+      <div class="verse-tools">
+        <div class="verse-action-row">
+          <button id="tao-dialog-favorite" class="favorite-button" type="button" aria-pressed="false">☆ Favorite</button>
+          <button id="tao-dialog-highlight" class="highlight-verse-button" type="button" aria-pressed="false">Highlight verse</button>
+          <button id="tao-dialog-copy" class="copy-verse-button" type="button">Copy verse</button>
+        </div>
+        <label class="note-label" for="tao-note">Your note<textarea id="tao-note" rows="4" placeholder="Add a note to this verse…"></textarea></label>
+        <div class="note-actions"><span id="tao-note-status" role="status"></span><button id="tao-save-note" class="save-note-button" type="button">Save note</button></div>
+      </div>
+    </dialog>
+    <dialog id="tao-full-chapter" class="verse-dialog tao-full-chapter" aria-labelledby="tao-full-chapter-title">
+      <div class="dialog-heading"><div><p class="eyebrow">FULL CHAPTER · ALL TRANSLATIONS</p><h2 id="tao-full-chapter-title"></h2></div><button id="tao-full-chapter-close" class="dialog-close" type="button" aria-label="Close chapter comparison">×</button></div>
+      <div id="tao-full-chapter-comparison" class="tao-full-chapter-comparison"></div>
+    </dialog>
+    <dialog id="tao-download-dialog" class="verse-dialog tao-tool-dialog" aria-labelledby="tao-download-title">
+      <div class="dialog-heading"><div><p class="eyebrow">TAO TE CHING</p><h2 id="tao-download-title">Download selected content</h2></div><button id="tao-download-close" class="dialog-close" type="button" aria-label="Close downloads">×</button></div>
+      <label class="tao-tool-label">Translation<select id="tao-download-translation" aria-label="Translation to download"></select></label>
+      <div class="content-download-tools"><input id="tao-chapter-search" type="search" placeholder="Filter chapters…" aria-label="Filter Tao Te Ching chapters"><button id="tao-select-visible" type="button">Select visible</button></div>
+      <div id="tao-download-chapters" class="tao-download-chapters" role="group" aria-label="Select chapters"></div>
+      <div class="content-download-footer"><span id="tao-download-count">0 chapters selected</span><button id="tao-download-selected" type="button" disabled>Download selected (.zip)</button></div>
+      <p id="tao-download-status" class="content-download-status" role="status" aria-live="polite"></p>
+    </dialog>
+    <dialog id="tao-inquiry-dialog" class="verse-dialog tao-tool-dialog" aria-labelledby="tao-inquiry-title">
+      <div class="dialog-heading"><div><p class="eyebrow">TAO TE CHING</p><h2 id="tao-inquiry-title">Inquiry</h2></div><button id="tao-inquiry-close" class="dialog-close" type="button" aria-label="Close inquiry">×</button></div>
+      <form id="tao-inquiry-form" class="tao-inquiry-form"><label class="tao-tool-label" for="tao-inquiry-question">What are you wondering about?<input id="tao-inquiry-question" type="search" maxlength="140" placeholder="Stillness, change, leadership…" required></label><button type="submit">Find passages</button></form>
+      <div id="tao-inquiry-results" class="tao-inquiry-results" aria-live="polite"></div>
+    </dialog>
+    <input id="tao-import-file" type="file" accept=".json,application/json" hidden>
+    <section class="browse" aria-label="Browse scripture">
+      <label class="field book-field">
+        <span class="field-label">Book</span>
+        <span class="select-wrap"><select id="book-select" aria-label="Choose a book"></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+      </label>
+      <label class="field topic-field" id="topic-field">
+        <span class="field-label">Topic</span>
+        <span class="select-wrap"><select id="topic-select" aria-label="Explore a topic"></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+      </label>
+      <label class="field chapter-field">
+        <span class="field-label" id="chapter-label">Choose a Psalm</span>
+        <span class="select-wrap"><select id="chapter-select" aria-label="Choose a chapter"></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+      </label>
+      <label id="translation-field" class="field translation-field">
+        <span class="field-label">Translation</span>
+        <span class="select-wrap"><select id="translation-select" aria-label="Choose a Bible translation" disabled><option>King James Version</option></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+      </label>
+    </section>
+    <section class="reading" aria-live="polite">
+      <div class="section-heading">
+        <div><p class="eyebrow" id="topic-kicker"></p><h2 id="topic-title"></h2></div>
+      </div>
+      <div id="selected-chapter"></div>
+      <p class="empty-state" id="empty-state" hidden>No matching chapters. Try another phrase or topic.</p>
+    </section>
+    <nav id="book-directory" class="book-directory" aria-label="Bible books">
+      <div class="directory-label">Books</div>
+      <div id="book-link-list" class="book-directory-groups"></div>
+      <div id="book-info-card" class="book-info-card" role="tooltip" hidden></div>
+    </nav>
+    <div id="font-menu" class="font-menu" role="menu" aria-label="Choose a page font" hidden></div>
+    <nav class="collection-switch" aria-label="Choose a text collection">
+      <button type="button" data-collection="bible" aria-pressed="true">Bible</button>
+      <button type="button" data-collection="tao" aria-pressed="false">Tao Te Ching</button>
+    </nav>
+  </main>
+  <dialog id="bible-export-dialog" class="bible-export-dialog" aria-labelledby="bible-export-title">
+    <div class="dialog-heading">
+      <div><p class="eyebrow">FULL BIBLE EXPORT</p><h2 id="bible-export-title">Are you sure you want to download the Bible?</h2></div>
+      <button id="close-bible-export" class="dialog-close" type="button" aria-label="Close">×</button>
+    </div>
+    <p class="bible-export-copy">Download all books, or choose just the books you need.</p>
+    <div id="bible-export-choices" class="bible-export-choices">
+      <button id="export-all-bible" class="bible-export-action" type="button">Download all 66 books</button>
+      <button id="show-bible-book-picker" class="bible-export-action secondary" type="button">Choose specific books</button>
+    </div>
+    <section id="bible-book-picker" class="bible-book-picker" hidden>
+      <div class="bible-picker-heading"><h3>Select books</h3><span id="bible-selection-count">0 selected</span></div>
+      <div id="bible-export-book-list" class="bible-export-book-list"></div>
+      <div class="bible-picker-actions"><button id="back-bible-export" class="bible-export-back" type="button">Back</button><button id="export-selected-bible" class="bible-export-action" type="button" disabled>Download selected books</button></div>
+    </section>
+    <p id="bible-export-dialog-status" class="bible-export-dialog-status" role="status" aria-live="polite"></p>
+  </dialog>
+  <dialog id="content-download-dialog" class="verse-dialog content-download-dialog" aria-labelledby="content-download-title">
+    <div class="dialog-heading"><div><p class="eyebrow">DOWNLOAD SELECTIONS</p><h2 id="content-download-title">Choose what to download</h2></div><button id="close-content-download" class="dialog-close" type="button" aria-label="Close downloads">×</button></div>
+    <div class="content-download-tabs" role="tablist" aria-label="Download category">
+      <button type="button" role="tab" data-content-kind="topics" aria-selected="true">Topics</button>
+      <button type="button" role="tab" data-content-kind="devotionals" aria-selected="false">Devotionals</button>
+      <button type="button" role="tab" data-content-kind="surveys" aria-selected="false">Survey results</button>
+      <button type="button" role="tab" data-content-kind="prayers" aria-selected="false">Prayers</button>
+    </div>
+    <p id="content-download-summary" class="content-download-summary">Select topics to export with their related chapters.</p>
+    <div class="content-download-tools"><input id="content-download-search" type="search" autocomplete="off" placeholder="Filter selections…" aria-label="Filter download selections" /><button id="content-download-select-visible" type="button">Select visible</button></div>
+    <div id="content-download-list" class="content-download-list" role="group" aria-label="Available downloads"></div>
+    <div class="content-download-footer"><span id="content-download-count">0 selected</span><button id="download-content-selected" type="button" disabled>Download selected (.txt)</button></div>
+    <p id="content-download-status" class="content-download-status" role="status" aria-live="polite"></p>
+  </dialog>
+  <dialog id="experience-dialog" class="experience-dialog" aria-label="Devotional and survey">
+    <div class="dialog-heading"><button id="close-experience-dialog" class="dialog-close" type="button" aria-label="Close">×</button></div>
+    <div class="experience-choices"><a class="experience-choice" href="sermon.html">Daily devotional <span aria-hidden="true">↗</span></a><button id="open-message-questionnaire" class="experience-choice" type="button">Survey <span aria-hidden="true">↗</span></button></div>
+  </dialog>
+  <dialog id="dictionary-dialog" class="verse-dialog dictionary-dialog" aria-labelledby="dictionary-title">
+    <div class="dialog-heading">
+      <div><p class="eyebrow">KING JAMES VERSION</p><h2 id="dictionary-title">Word dictionary</h2></div>
+      <button id="close-dictionary" class="dialog-close" type="button" aria-label="Close dictionary">×</button>
+    </div>
+    <p id="dictionary-summary" class="dictionary-summary">Building the KJV word index…</p>
+    <label class="dictionary-search-wrap"><span class="sr-only">Find a KJV word</span><input id="dictionary-search" type="search" autocomplete="off" placeholder="Search all KJV words…" /></label>
+    <div class="dictionary-columns">
+      <div id="dictionary-word-list" class="dictionary-word-list" role="listbox" aria-label="KJV words"></div>
+      <section id="dictionary-entry" class="dictionary-entry" aria-live="polite"><p class="dictionary-prompt">Choose a word to see its pronunciation, part of speech, definitions, and KJV usage.</p></section>
+    </div>
+  </dialog>
+  <dialog id="bible-dictionary-dialog" class="verse-dialog dictionary-dialog bible-dictionary-dialog" aria-labelledby="bible-dictionary-title">
+    <div class="dialog-heading">
+      <div><p class="eyebrow">EASTON’S · SMITH’S</p><h2 id="bible-dictionary-title">Religious dictionary</h2></div>
+      <button id="close-bible-dictionary" class="dialog-close" type="button" aria-label="Close religious dictionary">×</button>
+    </div>
+    <p id="bible-dictionary-summary" class="dictionary-summary">Search local Easton’s and Smith’s Bible dictionary entries.</p>
+    <label class="dictionary-search-wrap"><span class="sr-only">Search religious dictionary</span><input id="bible-dictionary-search" type="search" autocomplete="off" placeholder="Search a Bible name or term…" /></label>
+    <div class="dictionary-columns">
+      <div id="bible-dictionary-results" class="dictionary-word-list" role="listbox" aria-label="Religious dictionary entries"><p class="dictionary-prompt">Enter a name or term to begin.</p></div>
+      <section id="bible-dictionary-detail" class="dictionary-entry" aria-live="polite"><p class="dictionary-prompt">Choose an entry to read its definition and Scripture references.</p></section>
+    </div>
+  </dialog>
+  <dialog id="verse-dialog" class="verse-dialog" aria-labelledby="dialog-reference">
+    <div class="dialog-heading">
+      <div><p class="eyebrow">A closer look</p><h2 id="dialog-reference"></h2></div>
+      <button id="close-verse-dialog" class="dialog-close" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="verse-pagination">
+      <button id="previous-verse" type="button">‹ Previous</button>
+      <span id="verse-position"></span>
+      <button id="next-verse" type="button">Next ›</button>
+    </div>
+    <div class="scroll-reader-controls">
+      <button id="scroll-mode-toggle" type="button" aria-pressed="false">Scroll rest of this book</button>
+      <label id="scroll-speed-control" hidden>Speed <input id="scroll-speed" type="range" min="5" max="80" step="5" value="20" /><output id="scroll-speed-value">20 px/s</output></label>
+    </div>
+    <div id="scroll-reader-pane" class="scroll-reader-pane" aria-label="Scrolling reading from this verse to the end of this book" tabindex="0" hidden></div>
+    <label class="read-progress-toggle"><input id="mark-read-verse" type="checkbox"><span>Mark as read</span></label>
+    <section class="translation-block">
+      <div class="translation-heading"><p id="translation-name" class="translation-label">King James Version</p></div>
+      <p id="dialog-kjv" class="dialog-verse"></p>
+      <details id="all-translation-details" class="all-translation-details">
+        <summary>See all translation versions</summary>
+        <p id="translation-compare-status" class="translation-compare-status" role="status" aria-live="polite"></p>
+        <div id="all-translation-versions" class="all-translation-versions"></div>
+      </details>
+    </section>
+    <div class="verse-tools">
+      <div class="verse-action-row"><button id="favorite-verse" class="favorite-button" type="button" aria-pressed="false">☆ Favorite</button><button id="highlight-verse" class="highlight-verse-button" type="button" aria-pressed="false">Highlight verse</button><button id="copy-active-verse" class="copy-verse-button" type="button">Copy verse</button></div>
+      <label class="note-label" for="verse-note">Your note<textarea id="verse-note" rows="4" placeholder="Add a note to this verse…"></textarea></label>
+      <div class="note-actions"><span id="note-status" role="status"></span><button id="save-note" class="save-note-button" type="button">Save note</button></div>
+      <div class="verse-export-actions"><button id="download-current-jpg" type="button">Download JPG</button><button id="download-current-verse" type="button">All formats ZIP</button><span id="verse-export-status" role="status" aria-live="polite"></span></div>
+    </div>
+  </dialog>
+  <dialog id="message-dialog" class="message-dialog" aria-labelledby="message-dialog-title">
+    <div class="dialog-heading">
+      <div><h2 id="message-dialog-title">Survey</h2></div>
+      <button id="close-message-dialog" class="dialog-close" type="button" aria-label="Close">×</button>
+    </div>
+    <p class="message-privacy">Answer whichever questions you like—one or several. Your answers help choose Scripture and shape a short reflection; they aren’t saved by this page.</p>
+    <button id="random-survey-answers" class="random-survey-answers" type="button">Random answers</button>
+    <form id="message-questionnaire-form" class="message-form">
+      <details class="question-group moment-group" data-question="moment"><summary>Which line feels closest to where you are today? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="moment" value="carry"><span>I’m carrying more than usual.</span></label>
+        <label><input type="checkbox" name="moment" value="waiting"><span>I’m waiting on something important.</span></label>
+        <label><input type="checkbox" name="moment" value="next"><span>I need to decide what comes next.</span></label>
+        <label><input type="checkbox" name="moment" value="thanks"><span>I want to notice what’s good.</span></label>
+        <label><input type="checkbox" name="moment" value="quiet"><span>I need a quiet place to begin.</span></label>
+        <label><input type="checkbox" name="moment" value="change"><span>Something has changed, and I’m finding my footing again.</span></label>
+        <label><input type="checkbox" name="moment" value="unsure"><span>I can’t quite name it.</span></label></div></details>
+      <details class="question-group" data-question="wish"><summary>What would you like to carry away? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="wish" value="keep-going"><span>Words that help me keep going.</span></label>
+        <label><input type="checkbox" name="wish" value="steady"><span>A reminder of what remains steady.</span></label>
+        <label><input type="checkbox" name="wish" value="next-step"><span>A thought for the next step.</span></label>
+        <label><input type="checkbox" name="wish" value="breathing"><span>A little room to breathe.</span></label>
+        <label><input type="checkbox" name="wish" value="day"><span>Words to carry into the day.</span></label></div></details>
+      <details class="question-group" data-question="stage"><summary>Which part of the process feels most like yours? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="stage" value="starting"><span>I’m just beginning to think it through.</span></label>
+        <label><input type="checkbox" name="stage" value="middle"><span>I’m in the middle of it.</span></label>
+        <label><input type="checkbox" name="stage" value="next"><span>I’m ready to take a next step.</span></label>
+        <label><input type="checkbox" name="stage" value="looking-back"><span>I’m looking back on what happened.</span></label>
+        <label><input type="checkbox" name="stage" value="unsure"><span>I’m not sure yet.</span></label></div></details>
+      <details class="question-group" data-question="tone"><summary>What tone would feel right today? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="tone" value="calm"><span>Calm and gentle.</span></label>
+        <label><input type="checkbox" name="tone" value="direct"><span>Clear and direct.</span></label>
+        <label><input type="checkbox" name="tone" value="reflective"><span>Reflective and spacious.</span></label>
+        <label><input type="checkbox" name="tone" value="encouraging"><span>Hopeful and encouraging.</span></label>
+        <label><input type="checkbox" name="tone" value="mixed"><span>A mixture.</span></label></div></details>
+      <details class="question-group" data-question="passage"><summary>Which kind of passage draws you in? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="passage" value="story"><span>A story with people in it.</span></label>
+        <label><input type="checkbox" name="passage" value="promise"><span>A promise to return to.</span></label>
+        <label><input type="checkbox" name="passage" value="prayer"><span>A prayer or praise.</span></label>
+        <label><input type="checkbox" name="passage" value="teaching"><span>A clear teaching.</span></label>
+        <label><input type="checkbox" name="passage" value="poetry"><span>Poetic words or images.</span></label></div></details>
+      <details class="question-group" data-question="timing"><summary>When might you read these verses? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="timing" value="morning"><span>At the start of my day.</span></label>
+        <label><input type="checkbox" name="timing" value="pause"><span>During a pause.</span></label>
+        <label><input type="checkbox" name="timing" value="before-choice"><span>Before I make a decision.</span></label>
+        <label><input type="checkbox" name="timing" value="evening"><span>At the close of the day.</span></label>
+        <label><input type="checkbox" name="timing" value="anytime"><span>Whenever I need it.</span></label></div></details>
+      <details class="question-group" data-question="focus"><summary>What would make this reflection useful to revisit? <span class="multi-hint">Choose one or more</span><span class="selected-count" aria-live="polite"></span></summary><div class="question-options"></legend>
+        <label><input type="checkbox" name="focus" value="remember"><span>A line I can remember.</span></label>
+        <label><input type="checkbox" name="focus" value="consider"><span>A thought to sit with.</span></label>
+        <label><input type="checkbox" name="focus" value="step"><span>A next step to consider.</span></label>
+        <label><input type="checkbox" name="focus" value="question"><span>A question for reflection.</span></label>
+        <label><input type="checkbox" name="focus" value="simple"><span>Keep it simple.</span></label></div></details>
+      <details class="question-group length-group"><summary>How many verses would you like?</summary><div class="question-options"><div class="length-options">
+          <label><input type="radio" name="length" value="5" checked><span>5</span></label>
+          <label><input type="radio" name="length" value="10"><span>10</span></label>
+          <label><input type="radio" name="length" value="15"><span>15</span></label>
+          <label><input type="radio" name="length" value="20"><span>20</span></label>
+          <label><input type="radio" name="length" value="25"><span>25</span></label>
+        </div></div></details>
+      <label class="message-context-label">Anything else you’d like this to keep in mind?
+        <textarea name="context" rows="3" maxlength="240" placeholder="Optional"></textarea>
+      </label>
+      <button class="create-message-button" type="submit">Find verses for me</button>
+    </form>
+    <div id="message-generating" class="message-generating" hidden>Gathering a few verses for you…</div>
+    <section id="message-result" class="message-result" aria-live="polite" hidden>
+      <p class="eyebrow">Verses for this moment</p>
+      <p id="message-opening" class="message-opening"></p>
+      <div id="message-verses"></div>
+      <p id="message-closing" class="message-closing"></p>
+    </section>
+  </dialog>
+  <script type="module" src="app.js"></script>
+  <script type="module" src="tao.js"></script>
+</body>
+</html>

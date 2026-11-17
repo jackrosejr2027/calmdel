@@ -1,0 +1,15 @@
+.music-widget{position:relative;z-index:2800;flex:0 0 auto;font-family:'DM Sans',sans-serif}
+.music-note-toggle{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid #d5c6aa;border-radius:50%;background:#f6efdf;color:#68583a;box-shadow:0 3px 12px #241a1022;font:22px/1 Georgia,serif;cursor:pointer}
+.music-note-toggle:hover,.music-note-toggle[aria-expanded=true]{background:#e9ddc5;color:#76542b}
+.music-panel{position:fixed;left:10px;top:76px;bottom:auto;width:286px;max-width:calc(100vw - 20px);max-height:calc(100dvh - 20px);overflow:auto;padding:12px;border:1px solid #d5c6aa;background:#fffdf8;color:#40392e;box-shadow:0 8px 28px #20170f2b}
+.music-panel[hidden]{display:none}.midi-transpose-row[hidden]{display:none!important}
+.music-panel-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;color:#755c36;font:600 11px 'DM Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.music-panel-heading button{width:27px;height:27px;border:0;background:transparent;color:#7a6b53;font-size:20px;cursor:pointer}
+.music-control-label{display:block;margin:8px 0 4px;color:#8a7653;font:600 9px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.music-select{display:block;width:100%;height:36px;padding:0 8px;border:1px solid #e0d5c0;border-radius:0;background:#faf6ed;color:#463d30;font:12px 'DM Sans',sans-serif}
+.midi-transpose-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0;color:#756448;font:10px/1.3 'DM Sans',sans-serif}.midi-transpose-row select{max-width:145px;height:29px;padding:0 5px;border:1px solid #e0d5c0;background:#faf6ed;color:#463d30;font:10px 'DM Sans',sans-serif}.midi-player-controls{display:flex;justify-content:center;gap:8px;margin:10px 0 5px}
+.midi-player-controls button{width:37px;height:34px;border:1px solid #d8c9ac;background:#f5edde;color:#695638;font-size:13px;cursor:pointer}
+.midi-player-controls button:hover{background:#ebdfc7}
+#midi-play{width:48px;color:#7c5a2e;font-size:15px}
+.midi-player-status{min-height:14px;margin:6px 0 0;color:#81765f;font:10px/1.4 'DM Sans',sans-serif;text-align:center}
+@media(max-width:540px){.music-panel{width:min(286px,calc(100vw - 20px))}}
